@@ -72,7 +72,7 @@
                             <div class="mb-3">
                                 <label for="email" class="form-label">{{ __('Email') }}</label>
                                 <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                    id="email" name="email" placeholder="Enter your email or username" autofocus
+                                    id="email" name="email" placeholder="Enter your email" autofocus
                                     value="{{ old('email') }}" />
 
                                 @error('email')
@@ -88,7 +88,7 @@
                                     <label class="form-label" for="password">{{ __('Password') }}</label>
                                 </div>
                                 <div class="input-group input-group-merge">
-                                    <input type="password" id="password"
+                                    <input type="password" id="password" autocomplete="off"
                                         class="form-control @error('password') is-invalid @enderror" name="password"
                                         placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                         aria-describedby="password" />

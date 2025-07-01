@@ -62,7 +62,7 @@
     <!-- Vendors JS -->
 
     <!-- Main JS -->
-    <script src="{{ asset('backend/assets/js/main.js') }}asse"></script>
+    <script src="{{ asset('backend/assets/js/main.js') }}"></script>
 
     <!-- Page JS -->
 
