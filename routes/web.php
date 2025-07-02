@@ -7,7 +7,7 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -17,8 +17,8 @@ Auth::routes();
 //     })->name('dashboard');
 // });
 
-Route::prefix('panel')->middleware(['auth'])->group(function () {
+Route::prefix('panel')->middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
-        return view('dashboard');
+        return view('backend.dashboard');
     })->name('dashboard');
 });

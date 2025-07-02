@@ -49,13 +49,13 @@
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
             <!-- menuSidebar -->
-            @include('partials.sidebar')
+            @include('backend.partials.sidebar')
             <!-- /menuSidebar -->
 
             <!-- Layout container -->
             <div class="layout-page">
                 <!-- Navbar -->
-                @include('partials.navbar')
+                @include('backend.partials.navbar')
                 <!-- /Navbar -->
 
                 <!-- Content wrapper -->
@@ -65,7 +65,7 @@
                     <!-- / Content -->
 
                     <!-- Footer -->
-                    @include('partials.footer')
+                    @include('backend.partials.footer')
                     <!-- / Footer -->
 
                     <div class="content-backdrop fade"></div>
