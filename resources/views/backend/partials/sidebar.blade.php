@@ -58,7 +58,7 @@
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
         <li class="menu-item {{ request()->is('panel/dashboard') ? 'active' : '' }}">
-            <a href="index.html" class="menu-link">
+            <a href="{{ route('panel.dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
             </a>
@@ -91,14 +91,14 @@
                 </li>
             </ul>
         </li>
-        <li class="menu-item">
+        <li class="menu-item {{ request()->is('panel/image') || request()->is('panel/video') ? 'open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-folder"></i>
                 <div data-i18n="Account Settings">Galley</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="pages-account-settings-account.html" class="menu-link">
+                <li class="menu-item {{ request()->is('panel/image') ? 'active' : '' }}">
+                    <a href="{{ route('panel.image.index') }}" class="menu-link">
                         <div data-i18n="Account">Image</div>
                     </a>
                 </li>
