@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Models\Image;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -47,9 +46,7 @@ class ImageController extends Controller
 
             // Simpan data Database
             Image::create([
-                'uuid' => Str::uuid(),
                 'name' => $request->name,
-                'slug' => Str::slug($request->name),
                 'description' => $request->description,
                 'file' => $imagePath,
             ]);
