@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Models\Image;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Http\Requests\StoreImageRequest;
 
 class ImageController extends Controller
 {
@@ -32,14 +32,16 @@ class ImageController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreImageRequest $request)
     {
-        // Validasi input
-        $request->validate([
-            'name' => 'required|min:3',
-            'description' => 'required|min:3',
-            'file' => 'required|image|mimes:jpeg,jpg,png|max:2048',
-        ]);
+        // Validasi input tanpa FormRequest
+        // $request->validate([
+        //     'name' => 'required|min:3',
+        //     'description' => 'required|min:3',
+        //     'file' => 'required|image|mimes:jpeg,jpg,png|max:2048',
+        // ]);
+
+        $request->validated();
 
         try {
             $imagePath = $request->file('file')->store('images', 'public');
