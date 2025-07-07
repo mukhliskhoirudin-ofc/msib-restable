@@ -38,9 +38,9 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($images as $image)
+                                            @forelse ($images as $image)
                                                 <tr>
-                                                    <th>{{ $loop->iteration }}</th>
+                                                    <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $image->name }}</td>
                                                     <td>{{ $image->slug }}</td>
                                                     <td>{{ $image->description }}</td>
@@ -51,15 +51,22 @@
                                                         <button type="button" class="btn btn-icon btn-secondary">
                                                             <span class="tf-icons bx bx-show"></span>
                                                         </button>
-                                                        <button type="button" class="btn btn-icon btn-warning">
+                                                        <a href="{{ route('panel.image.edit', $image) }}"
+                                                            class="btn btn-icon btn-warning">
                                                             <span class="tf-icons bx bx-edit"></span>
-                                                        </button>
+                                                        </a>
                                                         <button type="button" class="btn btn-icon btn-danger">
                                                             <span class="tf-icons bx bx-trash"></span>
                                                         </button>
                                                     </td>
                                                 </tr>
-                                            @endforeach
+                                            @empty
+                                                <tr>
+                                                    <td colspan="6" class="text-center text-muted">Data gambar tidak
+                                                        tersedia.
+                                                    </td>
+                                                </tr>
+                                            @endforelse
                                         </tbody>
                                     </table>
                                 </div>

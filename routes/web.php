@@ -17,10 +17,14 @@ Auth::routes(['verify' => true]);
 // });
 
 //backend
-Route::prefix('panel')->middleware(['auth', 'verified'])->group(function () {
+Route::prefix('panel')->middleware(['auth', 'verified'])->name('panel.')->group(function () {
     Route::get('dashboard', function () {
         return view('backend.dashboard');
-    })->name('panel.dashboard');
+    })->name('dashboard');
 
-    Route::resource('image', ImageController::class)->names('panel.image');
+    // ini default uuid karena getRouteKeyName() = uuid
+    Route::resource('image', ImageController::class)->names('image');
+    // ini kalau mau pake route show pakai slug
+    // Route::get('image/{image:slug}', [ImageController::class, 'show'])->name('image.show'); 
+
 });

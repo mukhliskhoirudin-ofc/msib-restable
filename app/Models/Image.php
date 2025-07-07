@@ -29,4 +29,9 @@ class Image extends Model
             }
         });
     }
+
+    public function getRouteKeyName(): string
+    {
+        return 'uuid';
+    }
 }
