@@ -42,6 +42,8 @@
     <script src="{{ asset('backend/assets/vendor/js/helpers.js') }}"></script>
 
     <script src="{{ asset('backend/assets/js/config.js') }}"></script>
+
+    @stack('css')
 </head>
 
 <body>
@@ -101,6 +103,8 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    @stack('js')
 </body>
 
 </html>

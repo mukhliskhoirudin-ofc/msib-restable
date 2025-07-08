@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Backend;
 use App\Models\Image;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreImageRequest;
+use App\Http\Requests\UpdateImageRequest;
 
 class ImageController extends Controller
 {
@@ -71,17 +73,38 @@ class ImageController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Image $image)
     {
-        //
+        return view('backend.image.edit', ['image' => $image]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateImageRequest $request, Image $image)
     {
-        //
+        $validated = $request->validated();
+
+        try {
+            // Jika ada file image baru di-upload
+            if ($request->hasFile('file')) {
+                // Hapus file lama jika ada dan file-nya benar-benar eksis di storage
+                if ($image->file && Storage::disk('public')->exists($image->file)) {
+                    Storage::disk('public')->delete($image->file);
+                }
+
+                // Simpan file baru
+                $imagePath = $request->file('file')->store('images', 'public');
+                $validated['file'] = $imagePath;
+            }
+
+            // Update ke database
+            $image->update($validated);
+
+            return redirect()->route('panel.image.index')->with('success', 'Data berhasil diperbarui.');
+        } catch (\Exception $err) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $err->getMessage());
+        }
     }
 
     /**
