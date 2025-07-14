@@ -14,10 +14,8 @@ class UpdateImageRequest extends FormRequest
 
     public function rules(): array
     {
-        $imageId = $this->route('image')->getKey();
-
         return [
-            'name' => 'required|min:3|unique:images,name,' . $imageId,
+            'name' => 'required|min:3|unique:images,name,' . $this->route('image')->id,
             'description' => 'required|min:3',
             'file' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
         ];

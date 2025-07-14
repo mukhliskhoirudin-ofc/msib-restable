@@ -18,6 +18,23 @@
                     <div class="d-flex align-items-end row">
                         <div class="col-sm-12">
                             <div class="card-body">
+                                {{-- Alert Success & Error --}}
+                                @if (session('success'))
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        <strong>Berhasil!</strong> {{ session('success') }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Tutup"></button>
+                                    </div>
+                                @endif
+
+                                @if (session('error'))
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <strong>Gagal!</strong> {{ session('error') }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Tutup"></button>
+                                    </div>
+                                @endif
+
                                 <div class="d-flex justify-content-between align-items-center px-3 pt-3 pb-3">
                                     <h5 class="mb-0">Gallery</h5>
                                     <a href="{{ route('panel.image.create') }}"
@@ -43,14 +60,15 @@
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $image->name }}</td>
                                                     <td>{{ $image->slug }}</td>
-                                                    <td>{{ $image->description }}</td>
+                                                    <td>{{ Str::limit($image->description, 35) }}</td>
                                                     <td>
                                                         <img src="{{ asset('storage/' . $image->file) }}" width="80">
                                                     </td>
                                                     <td>
-                                                        <button type="button" class="btn btn-icon btn-secondary">
+                                                        <a href="{{ route('panel.image.show', $image) }}"
+                                                            class="btn btn-icon btn-secondary">
                                                             <span class="tf-icons bx bx-show"></span>
-                                                        </button>
+                                                        </a>
                                                         <a href="{{ route('panel.image.edit', $image) }}"
                                                             class="btn btn-icon btn-warning">
                                                             <span class="tf-icons bx bx-edit"></span>
