@@ -73,9 +73,16 @@
                                                             class="btn btn-icon btn-warning">
                                                             <span class="tf-icons bx bx-edit"></span>
                                                         </a>
-                                                        <button type="button" class="btn btn-icon btn-danger">
-                                                            <span class="tf-icons bx bx-trash"></span>
-                                                        </button>
+                                                        <form action="{{ route('panel.image.destroy', $image) }}"
+                                                            class="d-inline"
+                                                            onsubmit="return confirm('Yakin ingin menghapus gambar ini?')"
+                                                            method="post">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-icon btn-danger">
+                                                                <span class="tf-icons bx bx-trash"></span>
+                                                            </button>
+                                                        </form>
                                                     </td>
                                                 </tr>
                                             @empty

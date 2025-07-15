@@ -36,13 +36,6 @@ class ImageController extends Controller
      */
     public function store(StoreImageRequest $request)
     {
-        // Validasi input tanpa FormRequest
-        // $request->validate([
-        //     'name' => 'required|min:3',
-        //     'description' => 'required|min:3',
-        //     'file' => 'required|image|mimes:jpeg,jpg,png|max:2048',
-        // ]);
-
         $request->validated();
 
         try {
@@ -110,8 +103,20 @@ class ImageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Image $image)
     {
-        //
+        try {
+            // Hapus file dari storage jika ada
+            if ($image->file && Storage::disk('public')->exists($image->file)) {
+                Storage::disk('public')->delete($image->file);
+            }
+
+            // Hapus data dari database
+            $image->delete();
+
+            return redirect()->route('panel.image.index')->with('success', 'Gambar berhasil dihapus.');
+        } catch (\Exception $err) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $err->getMessage());
+        }
     }
 }
