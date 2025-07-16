@@ -57,7 +57,7 @@
                                         <tbody>
                                             @forelse ($images as $image)
                                                 <tr>
-                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $images->firstItem() + $loop->index }}</td>
                                                     <td>{{ $image->name }}</td>
                                                     <td>{{ $image->slug }}</td>
                                                     <td>{{ Str::limit($image->description, 35) }}</td>
@@ -94,6 +94,11 @@
                                             @endforelse
                                         </tbody>
                                     </table>
+                                    @if ($images->hasPages())
+                                        <div class="mt-3">
+                                            {{ $images->links() }}
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>

@@ -16,7 +16,7 @@ class ImageController extends Controller
      */
     public function index()
     {
-        $images = Image::latest()->select(['uuid', 'name', 'slug', 'description', 'file'])->get();
+        $images = Image::latest()->select(['uuid', 'name', 'slug', 'description', 'file'])->paginate(5);
 
         return view('backend.image.index', [
             'images' => $images
