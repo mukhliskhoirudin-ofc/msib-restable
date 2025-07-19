@@ -48,4 +48,13 @@ class Menu extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // ini buat bedge status = namanya via assesor = pemanggilnya nanti badge_color
+    public function getBadgeColorAttribute()
+    {
+        return match ($this->status) {  //status nyesuain field di database
+            'active' => 'success',
+            'inactive' => 'danger',
+        };
+    }
 }

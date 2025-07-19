@@ -69,9 +69,9 @@
                                                         <img src="{{ asset('storage/' . $menu->image) }}" width="80">
                                                     </td>
                                                     <td>
-                                                        <span
-                                                            class="badge bg-{{ $menu->status == 'active' ? 'success' : 'secondary' }}">
-                                                            {{ ucfirst($menu->status) }}
+                                                        {{-- ini badge via assesornya ada di model menu --}}
+                                                        <span class="badge rounded-pill bg-{{ $menu->badge_color }}">
+                                                            {{ $menu->status }}
                                                         </span>
                                                     </td>
                                                     <td>
