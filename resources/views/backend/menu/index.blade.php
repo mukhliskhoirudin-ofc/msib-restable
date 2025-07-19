@@ -37,7 +37,8 @@
 
                                 <div class="d-flex justify-content-between align-items-center px-3 pt-3 pb-3">
                                     <h5 class="mb-0">Menu</h5>
-                                    <a href="#" class="btn btn-md rounded-pill btn-primary px-4">
+                                    <a href="{{ route('panel.menu.create') }}"
+                                        class="btn btn-md rounded-pill btn-primary px-4">
                                         Create
                                     </a>
                                 </div>

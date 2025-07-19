@@ -6,6 +6,9 @@ use App\Models\Menu;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\Cache\Store;
+use App\Http\Requests\StoreMenuRequest;
 
 class MenuController extends Controller
 {
@@ -26,15 +29,33 @@ class MenuController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::select('id', 'name')->get();
+
+        return view('backend.menu.create', [
+            'categories' => $categories
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreMenuRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        try {
+            $validated['user_id'] = Auth::user()->id; //ini kalau pake ralasi ke user
+
+            if ($request->hasFile('image')) {
+                $validated['image'] = $request->file('image')->store('images', 'public');
+            }
+
+            Menu::create($validated);
+
+            return redirect()->route('panel.menu.index')->with('success', 'Data berhasil disimpan.');
+        } catch (\Throwable $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
 
     /**
