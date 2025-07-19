@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Models\Image;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreImageRequest;
@@ -36,17 +35,14 @@ class ImageController extends Controller
      */
     public function store(StoreImageRequest $request)
     {
-        $request->validated();
+        $validated = $request->validated();
 
         try {
-            $imagePath = $request->file('file')->store('images', 'public');
+            if ($request->hasFile('file')) {
+                $validated['file'] = $request->file('file')->store('images', 'public');
+            }
 
-            // Simpan data Database
-            Image::create([
-                'name' => $request->name,
-                'description' => $request->description,
-                'file' => $imagePath,
-            ]);
+            Image::create($validated);
 
             return redirect()->route('panel.image.index')->with('success', 'Data berhasil disimpan.');
         } catch (\Exception $err) {
@@ -87,8 +83,7 @@ class ImageController extends Controller
                 }
 
                 // Simpan file baru
-                $imagePath = $request->file('file')->store('images', 'public');
-                $validated['file'] = $imagePath;
+                $validated['file'] = $request->file('file')->store('images', 'public');
             }
 
             // Update ke database
