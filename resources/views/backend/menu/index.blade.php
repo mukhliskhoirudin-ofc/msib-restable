@@ -75,7 +75,8 @@
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <a href="#" class="btn btn-icon btn-secondary">
+                                                        <a href="{{ route('panel.menu.show', $menu) }}"
+                                                            class="btn btn-icon btn-secondary">
                                                             <span class="tf-icons bx bx-show"></span>
                                                         </a>
                                                         <a href="#" class="btn btn-icon btn-warning">

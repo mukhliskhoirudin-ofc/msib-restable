@@ -29,4 +29,5 @@ Route::prefix('panel')->middleware(['auth', 'verified'])->name('panel.')->group(
     Route::get('image/{image:slug}', [ImageController::class, 'show'])->name('image.show');
 
     Route::resource('menu', MenuController::class)->names('menu');
+    Route::get('menu/{menu:slug}', [MenuController::class, 'show'])->name('menu.show');
 });

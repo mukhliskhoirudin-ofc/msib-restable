@@ -11,7 +11,7 @@ class Menu extends Model
 {
     protected $table = 'menus';
 
-    protected $with = ['category', 'user'];
+    protected $with = ['category:id,name', 'user'];
 
     protected $fillable = [
         'uuid',
@@ -56,5 +56,10 @@ class Menu extends Model
             'active' => 'success',
             'inactive' => 'danger',
         };
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'uuid';
     }
 }
