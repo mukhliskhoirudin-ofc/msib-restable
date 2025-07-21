@@ -83,8 +83,10 @@
                                                             class="btn btn-icon btn-warning">
                                                             <span class="tf-icons bx bx-edit"></span>
                                                         </a>
-                                                        <form action="#" method="POST" class="d-inline"
-                                                            onsubmit="return confirm('Yakin ingin menghapus menu ini?')">
+                                                        <form action="{{ route('panel.menu.destroy', $menu) }}"
+                                                            class="d-inline"
+                                                            onsubmit="return confirm('Yakin ingin menghapus menu ini?')"
+                                                            method="post">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit" class="btn btn-icon btn-danger">

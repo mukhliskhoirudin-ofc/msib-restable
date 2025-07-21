@@ -109,8 +109,18 @@ class MenuController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Menu $menu)
     {
-        //
+        try {
+            if ($menu->image && Storage::disk('public')->exists($menu->image)) {
+                Storage::disk('public')->delete($menu->image);
+            }
+
+            $menu->delete();
+
+            return redirect()->route('panel.menu.index')->with('success', 'Menu berhasil dihapus.');
+        } catch (\Exception $err) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $err->getMessage());
+        }
     }
 }
