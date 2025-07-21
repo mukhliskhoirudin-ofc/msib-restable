@@ -79,7 +79,8 @@
                                                             class="btn btn-icon btn-secondary">
                                                             <span class="tf-icons bx bx-show"></span>
                                                         </a>
-                                                        <a href="#" class="btn btn-icon btn-warning">
+                                                        <a href="{{ route('panel.menu.edit', $menu) }}"
+                                                            class="btn btn-icon btn-warning">
                                                             <span class="tf-icons bx bx-edit"></span>
                                                         </a>
                                                         <form action="#" method="POST" class="d-inline"

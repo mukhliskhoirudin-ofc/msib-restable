@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Cache\Store;
 use App\Http\Requests\StoreMenuRequest;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\UpdateMenuRequest;
 
 class MenuController extends Controller
 {
@@ -71,17 +73,37 @@ class MenuController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Menu $menu)
     {
-        //
+        $categories = Category::select('id', 'name')->get();
+
+        return view('backend.menu.edit', [
+            'menu' => $menu,
+            'categories' => $categories
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateMenuRequest $request, Menu $menu)
     {
-        //
+        $validated = $request->validated();
+
+        try {
+            if ($request->hasFile('image')) {
+                if ($menu->image && Storage::disk('public')->exists($menu->image)) {
+                    Storage::disk('public')->delete($menu->image);
+                }
+                $validated['image'] = $request->file('image')->store('images', 'public');
+            }
+
+            $menu->update($validated);
+
+            return redirect()->route('panel.menu.index')->with('success', 'Menu berhasil diperbarui.');
+        } catch (\Throwable $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
 
     /**
