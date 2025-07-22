@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreImageRequest extends FormRequest
+class ImageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,13 +23,12 @@ class StoreImageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|min:3|unique:images',
-            'description' => 'required|min:3',
-            'file' => 'required|image|mimes:jpeg,jpg,png|max:2048',
+            'name' => ['required', 'min:3', Rule::unique('images', 'name')->ignore($this->route('image')?->id)],
+            'description' => ['required', 'min:3'],
+            'file' => [$this->isMethod('POST') ? 'required' : 'nullable', 'image', 'mimes:jpeg,jpg,png', 'max:2048'],
         ];
     }
 
-    //opsional pesan costum
     public function messages(): array
     {
         return [

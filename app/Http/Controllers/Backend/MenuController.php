@@ -8,9 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Cache\Store;
-use App\Http\Requests\StoreMenuRequest;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Requests\UpdateMenuRequest;
+use App\Http\Requests\MenuRequest;
 
 class MenuController extends Controller
 {
@@ -41,7 +40,7 @@ class MenuController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMenuRequest $request)
+    public function store(MenuRequest $request)
     {
         $validated = $request->validated();
 
@@ -86,7 +85,7 @@ class MenuController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMenuRequest $request, Menu $menu)
+    public function update(MenuRequest $request, Menu $menu)
     {
         $validated = $request->validated();
 
