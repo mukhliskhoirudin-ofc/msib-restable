@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\ChefController;
 use App\Http\Controllers\Backend\ImageController;
 use App\Http\Controllers\Backend\MenuController;
 use Illuminate\Support\Facades\Auth;
@@ -30,4 +31,6 @@ Route::prefix('panel')->middleware(['auth', 'verified'])->name('panel.')->group(
 
     Route::resource('menu', MenuController::class)->names('menu');
     Route::get('menu/{menu:slug}', [MenuController::class, 'show'])->name('menu.show');
+
+    Route::resource('chef', ChefController::class)->names('chef');
 });
