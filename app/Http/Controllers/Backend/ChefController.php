@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Backend;
 use App\Models\Chef;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChefRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
 
 class ChefController extends Controller
 {
@@ -13,7 +15,9 @@ class ChefController extends Controller
      */
     public function index()
     {
-        $chefs = Chef::latest()->select(['uuid', 'name', 'position', 'description', 'image', 'insta_link', 'linked_link'])->paginate(5);
+        $chefs = Chef::latest()
+            ->select(['uuid', 'name', 'position', 'description', 'image', 'insta_link', 'linked_link'])
+            ->paginate(5);
 
         return view('backend.chef.index', [
             'chefs' => $chefs

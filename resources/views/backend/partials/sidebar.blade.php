@@ -68,24 +68,25 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Data Master</span>
         </li>
-        <li class="menu-item {{ request()->is('panel/menu*') ? 'open' : '' }}">
+        <li class="menu-item {{ request()->is('panel/menu*', 'panel/chef*', 'panel/event*') ? 'open' : '' }}">
 
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <div data-i18n="Account Settings">Master</div>
             </a>
+
             <ul class="menu-sub">
-                <li class="menu-item {{ request()->is('panel/menu') ? 'active' : '' }}">
+                <li class="menu-item {{ request()->is('panel/menu*') ? 'active' : '' }}">
                     <a href="{{ route('panel.menu.index') }}" class="menu-link">
                         <div data-i18n="Account">Menu</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="pages-account-settings-notifications.html" class="menu-link">
+                <li class="menu-item {{ request()->is('panel/chef*') ? 'active' : '' }}">
+                    <a href="{{ route('panel.chef.index') }}" class="menu-link">
                         <div data-i18n="Notifications">Chef</div>
                     </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item {{ request()->is('panel/event*') ? 'active' : '' }}">
                     <a href="pages-account-settings-connections.html" class="menu-link">
                         <div data-i18n="Connections">Event</div>
                     </a>
