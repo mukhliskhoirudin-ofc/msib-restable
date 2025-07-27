@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Models\Chef;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\ChefRequest;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 
 class ChefController extends Controller
@@ -65,7 +66,9 @@ class ChefController extends Controller
      */
     public function edit(Chef $chef)
     {
-        //
+        return view('backend.chef.edit', [
+            'chef' => $chef
+        ]);
     }
 
     /**
@@ -73,7 +76,23 @@ class ChefController extends Controller
      */
     public function update(ChefRequest $request, Chef $chef)
     {
-        //
+        $validated = $request->validated();
+
+        try {
+            if ($request->hasFile('image')) {
+                if ($chef->image && Storage::disk('public')->exists($chef->image)) {
+                    Storage::disk('public')->delete($chef->image);
+                }
+
+                $validated['image'] = $request->file('image')->store('images', 'public');
+            }
+
+            $chef->update($validated);
+
+            return redirect()->route('panel.chef.index')->with('success', 'Data berhasil disimpan.');
+        } catch (\Throwable $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
 
     /**
