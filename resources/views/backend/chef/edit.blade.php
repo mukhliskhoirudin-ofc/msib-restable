@@ -56,7 +56,7 @@
                             <div class="row">
                                 <div class="mb-3 col-md-6">
                                     <label for="insta_link" class="form-label">Instagram</label>
-                                    <input type="text" id="insta_link" name="insta_link" placeholder="https://"
+                                    <input type="url" id="insta_link" name="insta_link" placeholder="https://"
                                         class="form-control @error('insta_link') is-invalid @enderror"
                                         value="{{ old('insta_link', $chef) }}">
                                     @error('insta_link')
@@ -65,7 +65,7 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label for="linked_link" class="form-label">LinkedIn</label>
-                                    <input type="text" id="linked_link" name="linked_link" placeholder="https://"
+                                    <input type="url" id="linked_link" name="linked_link" placeholder="https://"
                                         class="form-control @error('linked_link') is-invalid @enderror"
                                         value="{{ old('linked_link', $chef) }}">
                                     @error('linked_link')

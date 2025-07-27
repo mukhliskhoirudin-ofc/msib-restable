@@ -100,6 +100,16 @@ class ChefController extends Controller
      */
     public function destroy(Chef $chef)
     {
-        //
+        try {
+            if ($chef->image && Storage::disk('public')->exists($chef->image)) {
+                Storage::disk('public')->delete($chef->image);
+            }
+
+            $chef->delete();
+
+            return redirect()->route('panel.chef.index')->with('success', 'Data berhasil dihapus.');
+        } catch (\Throwable $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
 }
