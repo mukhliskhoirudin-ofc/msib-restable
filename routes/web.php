@@ -1,10 +1,12 @@
 <?php
 
-use App\Http\Controllers\Backend\ChefController;
-use App\Http\Controllers\Backend\ImageController;
-use App\Http\Controllers\Backend\MenuController;
+use App\Models\Event;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Backend\ChefController;
+use App\Http\Controllers\Backend\MenuController;
+use App\Http\Controllers\Backend\EventController;
+use App\Http\Controllers\Backend\ImageController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -33,4 +35,6 @@ Route::prefix('panel')->middleware(['auth', 'verified'])->name('panel.')->group(
     Route::get('menu/{menu:slug}', [MenuController::class, 'show'])->name('menu.show');
 
     Route::resource('chef', ChefController::class)->names('chef');
+
+    Route::resource('event', EventController::class)->except('show')->names('event');
 });
