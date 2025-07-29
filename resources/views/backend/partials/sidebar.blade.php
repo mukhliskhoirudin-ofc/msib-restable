@@ -87,7 +87,7 @@
                     </a>
                 </li>
                 <li class="menu-item {{ request()->is('panel/event*') ? 'active' : '' }}">
-                    <a href="pages-account-settings-connections.html" class="menu-link">
+                    <a href="{{ route('panel.event.index') }}" class="menu-link">
                         <div data-i18n="Connections">Event</div>
                     </a>
                 </li>
