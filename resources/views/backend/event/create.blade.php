@@ -1,6 +1,6 @@
 @extends('backend.layouts.main')
 
-@section('title', 'Create Menu')
+@section('title', 'Event')
 
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
@@ -11,17 +11,17 @@
                         <div class="fw-bold cursor-pointer">Master Data</div>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ route('panel.menu.index') }}">Menu</a>
+                        <a href="{{ route('panel.event.index') }}">Event</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ route('panel.menu.create') }}">Create</a>
+                        <a href="{{ route('panel.event.create') }}">Create</a>
                     </li>
                 </ol>
 
                 <div class="card">
-                    <h5 class="card-header">Create Menu</h5>
+                    <h5 class="card-header">Create Event</h5>
                     <div class="card-body">
-                        <form action="{{ route('panel.menu.store') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('panel.event.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
 
                             <div class="row">
@@ -31,46 +31,10 @@
                                             <span class="text-danger">*</span></label>
                                         <input type="text" name="name" id="name"
                                             class="form-control @error('name') is-invalid @enderror"
-                                            value="{{ old('name') }}" placeholder="Nama menu">
+                                            value="{{ old('name') }}" placeholder="Nama event">
                                         @error('name')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="category_id" class="form-label">Category
-                                            <span class="text-danger">*</span></label>
-                                        <select name="category_id" id="category_id"
-                                            class="form-select @error('category_id') is-invalid @enderror">
-                                            <option value="" selected disabled>-- Pilih Kategori --</option>
-                                            @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}" @selected(old('category_id') == $category->id)>
-                                                    {{ $category->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('category_id')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="price" class="form-label">Price
-                                            <span class="text-danger">*</span></label>
-                                        <div class="input-group">
-                                            <span class="input-group-text">Rp</span>
-                                            <input type="number" name="price" id="price" min="0"
-                                                class="form-control @error('price') is-invalid @enderror"
-                                                value="{{ old('price') }}" placeholder="Contoh: 15000">
-                                            @error('price')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -94,6 +58,21 @@
                             </div>
 
                             <div class="mb-3">
+                                <label for="price" class="form-label">Price
+                                    <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text">Rp</span>
+                                    <input type="number" name="price" id="price" min="0"
+                                        class="form-control @error('price') is-invalid @enderror"
+                                        value="{{ old('price') }}" placeholder="Ex: 150000">
+                                    @error('price')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+
+                            <div class="mb-3">
                                 <label for="image" class="form-label">Image
                                     <span class="text-danger">*</span></label>
                                 <input type="file" name="image" id="image"
@@ -115,8 +94,8 @@
                             </div>
 
                             <div class="float-end">
-                                <a href="{{ route('panel.menu.index') }}" class="btn btn-secondary">Back</a>
-                                <button type="submit" class="btn btn-primary">Kirim</button>
+                                <a href="{{ route('panel.event.index') }}" class="btn btn-secondary">Back</a>
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                         </form>
                     </div>

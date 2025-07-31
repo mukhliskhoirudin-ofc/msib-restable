@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Models\Event;
 use Illuminate\Http\Request;
+use App\Http\Requests\EventRequest;
 use App\Http\Controllers\Controller;
 
 class EventController extends Controller
@@ -27,15 +28,27 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.event.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(EventRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        try {
+            if ($request->hasFile('image')) {
+                $validated['image'] = $request->file('image')->store('images', 'public');
+            }
+
+            Event::create($validated);
+
+            return redirect()->route('panel.event.index')->with('success', 'Data berhasil disimpan.');
+        } catch (\Throwable $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -57,7 +70,7 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(EventRequest $request, string $id)
     {
         //
     }
