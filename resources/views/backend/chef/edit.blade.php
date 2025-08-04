@@ -28,7 +28,7 @@
                                     <label class="form-label" for="name">Name</label>
                                     <input type="text" id="name" name="name"
                                         class="form-control @error('name') is-invalid @enderror"
-                                        value="{{ old('name', $chef) }}" />
+                                        value="{{ old('name', $chef->name) }}" />
                                     @error('name')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -58,7 +58,7 @@
                                     <label for="insta_link" class="form-label">Instagram</label>
                                     <input type="url" id="insta_link" name="insta_link" placeholder="https://"
                                         class="form-control @error('insta_link') is-invalid @enderror"
-                                        value="{{ old('insta_link', $chef) }}">
+                                        value="{{ old('insta_link', $chef->insta_link) }}">
                                     @error('insta_link')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -67,7 +67,7 @@
                                     <label for="linked_link" class="form-label">LinkedIn</label>
                                     <input type="url" id="linked_link" name="linked_link" placeholder="https://"
                                         class="form-control @error('linked_link') is-invalid @enderror"
-                                        value="{{ old('linked_link', $chef) }}">
+                                        value="{{ old('linked_link', $chef->linked_link) }}">
                                     @error('linked_link')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -77,7 +77,7 @@
                             <div class="mb-3">
                                 <label for="description" class="form-label">Description</label>
                                 <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description"
-                                    rows="3">{{ old('description', $chef) }}</textarea>
+                                    rows="3">{{ old('description', $chef->description) }}</textarea>
                                 @error('description')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror

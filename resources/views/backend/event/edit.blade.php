@@ -32,7 +32,7 @@
                                             <span class="text-danger">*</span></label>
                                         <input type="text" name="name" id="name"
                                             class="form-control @error('name') is-invalid @enderror"
-                                            value="{{ old('name', $event) }}" placeholder="Nama event">
+                                            value="{{ old('name', $event->name) }}" placeholder="Nama event">
                                         @error('name')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -64,7 +64,7 @@
                                     <span class="input-group-text">Rp</span>
                                     <input type="number" name="price" id="price" min="0"
                                         class="form-control @error('price') is-invalid @enderror"
-                                        value="{{ old('price', $event) }}" placeholder="Ex: 150000">
+                                        value="{{ old('price', $event->price) }}" placeholder="Ex: 150000">
                                     @error('price')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -92,7 +92,7 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror"
-                                    rows="3">{{ old('description', $event) }}</textarea>
+                                    rows="3">{{ old('description', $event->description) }}</textarea>
                                 @error('description')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
