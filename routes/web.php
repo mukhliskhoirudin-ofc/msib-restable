@@ -9,7 +9,7 @@ use App\Http\Controllers\Backend\EventController;
 use App\Http\Controllers\Backend\ImageController;
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('frontend.layouts.main');
 });
 
 Auth::routes(['verify' => true]);
