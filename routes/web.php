@@ -7,10 +7,14 @@ use App\Http\Controllers\Backend\ChefController;
 use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\EventController;
 use App\Http\Controllers\Backend\ImageController;
+use App\Http\Controllers\Frontend\MainController;
 
-Route::get('/', function () {
-    return view('frontend.layouts.main');
-});
+// Route::get('/', function () {
+//     return view('frontend.layouts.main');
+// });
+
+// frontend
+Route::get('/', MainController::class, '__invoke')->name('main');
 
 Auth::routes(['verify' => true]);
 
