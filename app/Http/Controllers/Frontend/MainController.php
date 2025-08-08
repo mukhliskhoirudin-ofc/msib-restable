@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Models\Chef;
 use App\Models\Menu;
 use App\Models\Event;
+use App\Models\Image;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -35,6 +36,10 @@ class MainController extends Controller
                 }])
                 ->select(['id', 'name', 'slug'])
                 ->get(),
+
+            'images' => Image::latest()
+                ->select(['name', 'slug', 'description', 'file'])
+                ->get()
         ]);
     }
 }
