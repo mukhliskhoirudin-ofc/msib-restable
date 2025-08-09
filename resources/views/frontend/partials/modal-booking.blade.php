@@ -1,21 +1,25 @@
-<section id="book-a-table" class="book-a-table section">
-
-    <!-- Section Title -->
-    <div class="container section-title" data-aos="fade-up">
-        <h2>Book A Table</h2>
-        <p><span>Book Your</span> <span class="description-title">Stay With Us<br></span></p>
-    </div><!-- End Section Title -->
-
-    <div class="container">
-
-        <div class="row g-0" data-aos="fade-up" data-aos-delay="100">
-
-            <div class="col-lg-4 reservation-img"
-                style="background-image: url({{ asset('frontend/assets/img/reservation.jpg') }});">
+<!-- Modal -->
+<div class="modal fade" id="bookingModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-danger ">
+                <h1 class="modal-title fs-5 text-white" id="staticBackdropLabel">Booking Your<span
+                        class="description-title">Stay
+                        With Us<br></span></h1>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
             </div>
-
-            <div class="col-lg-8 d-flex align-items-center reservation-form-bg" data-aos="fade-up" data-aos-delay="200">
-                <form action="forms/book-a-table.php" method="post" role="form" class="php-email-form">
+            <div class="modal-body">
+                <form action="" method="post" role="form" class="php-email-form">
+                    <div class="mb-3">
+                        <select name="type" id="type" class="form-select">
+                            <option value="" selected disabled>-- Select Type --</option>
+                            <option value="table">Table</option>
+                            <option value="event">Event</option>
+                            <option value="menu">Menu</option>
+                        </select>
+                    </div>
                     <div class="row gy-4">
                         <div class="col-lg-4 col-md-6">
                             <input type="text" name="name" class="form-control" id="name"
@@ -39,7 +43,7 @@
                         </div>
                         <div class="col-lg-4 col-md-6">
                             <input type="number" class="form-control" name="people" id="people"
-                                placeholder="# of people" required="">
+                                placeholder="# of people" required="" min="1">
                         </div>
                     </div>
 
@@ -47,18 +51,13 @@
                         <textarea class="form-control" name="message" rows="5" placeholder="Message"></textarea>
                     </div>
 
-                    <div class="text-center mt-3">
-                        <div class="loading">Loading</div>
-                        <div class="error-message"></div>
-                        <div class="sent-message">Your booking request was sent. We will call back or send an
-                            Email to confirm your reservation. Thank you!</div>
-                        <button type="submit">Book a Table</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Booking</button>
                     </div>
                 </form>
-            </div><!-- End Reservation Form -->
+            </div>
 
         </div>
-
     </div>
-
-</section>
+</div>

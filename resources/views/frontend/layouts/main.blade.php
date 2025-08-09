@@ -54,7 +54,8 @@
                         <p data-aos="fade-up" data-aos-delay="100">We are team of talented designers making websites
                             with Bootstrap</p>
                         <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-                            <a href="#book-a-table" class="btn-get-started">Booka a Table</a>
+                            <a href="#" class="btn-get-started" data-bs-toggle="modal"
+                                data-bs-target="#bookingModal">Booking Now</a>
                             <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8"
                                 class="glightbox btn-watch-video d-flex align-items-center"><i
                                     class="bi bi-play-circle"></i><span>Watch Video</span></a>
@@ -251,7 +252,7 @@
         <!-- /Chefs Section -->
 
         <!-- Book A Table Section -->
-        @include('frontend.partials.bookatable')
+        @include('frontend.partials.modal-booking')
         <!-- /Book A Table Section -->
 
         <!-- Gallery Section -->
