@@ -8,13 +8,16 @@ use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\EventController;
 use App\Http\Controllers\Backend\ImageController;
 use App\Http\Controllers\Frontend\MainController;
+use App\Http\Controllers\Frontend\BookingController;
 
 // Route::get('/', function () {
 //     return view('frontend.layouts.main');
 // });
 
 // frontend
-Route::get('/', MainController::class, '__invoke')->name('main');
+Route::get('/', MainController::class);
+Route::post('booking', [BookingController::class, 'store'])->name('booking.store');
+
 
 Auth::routes(['verify' => true]);
 

@@ -21,7 +21,8 @@
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
 
-        <a href="#" class="btn-getstarted" data-bs-toggle="modal" data-bs-target="#bookingModal">Booking Now</a>
+        <a href="{{ route('booking.store') }}" class="btn-getstarted" data-bs-toggle="modal"
+            data-bs-target="#bookingModal">Booking Now</a>
 
     </div>
 </header>
