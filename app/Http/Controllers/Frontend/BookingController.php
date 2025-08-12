@@ -33,7 +33,7 @@ class BookingController extends Controller
 
             Transaction::create($validated);
 
-            return redirect()->back()->with('success', 'Booking berhasil dikirim.');
+            return redirect()->back()->with('success', 'Booking berhasil dikirim, pesanan anda akan segera diproses.');
         } catch (\Throwable $e) {
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }

@@ -40,6 +40,9 @@
 
 <body class="index-page">
 
+    {{-- flash message --}}
+    <div class="flash-message" data-success="{{ session('success') }}" data-error="{{ session('error') }}"></div>
+
     {{-- header --}}
     @include('frontend.partials.header')
 
@@ -368,9 +371,6 @@
     <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
 
-    <!-- Preloader -->
-    <div id="preloader"></div>
-
     <!-- Vendor JS Files -->
     <script src="{{ asset('frontend/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/vendor/php-email-form/validate.js') }}"></script>
@@ -381,6 +381,40 @@
 
     <!-- Main JS File -->
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
+
+    <!-- Sweetalert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        // SweetAlert untuk notifikasi booking
+        document.addEventListener('DOMContentLoaded', function() {
+            const flash = document.querySelector('.flash-message');
+
+            if (flash?.dataset.success) {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: flash.dataset.success,
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 3000,
+                    toast: true,
+                });
+            }
+
+            if (flash?.dataset.error) {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: flash.dataset.error,
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 3000,
+                    toast: true,
+                });
+            }
+        });
+    </script>
 
 </body>
 
