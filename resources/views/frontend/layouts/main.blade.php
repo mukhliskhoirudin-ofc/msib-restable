@@ -416,6 +416,19 @@
         });
     </script>
 
+    <!-- cara atasi refresh saat tombol submit ditekan -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cek jika ada error validasi
+            const hasErrors = @json($errors->any());
+
+            if (hasErrors) {
+                const bookingModal = new bootstrap.Modal(document.getElementById('bookingModal')); //id bookingModal
+                bookingModal.show();
+            }
+        });
+    </script>
+
 </body>
 
 </html>
