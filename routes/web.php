@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\EventController;
 use App\Http\Controllers\Backend\ImageController;
 use App\Http\Controllers\Frontend\MainController;
 use App\Http\Controllers\Frontend\BookingController;
+use App\Http\Controllers\Backend\TransactionController;
 
 // Route::get('/', function () {
 //     return view('frontend.layouts.main');
@@ -44,4 +45,6 @@ Route::prefix('panel')->middleware(['auth', 'verified'])->name('panel.')->group(
     Route::resource('chef', ChefController::class)->names('chef');
 
     Route::resource('event', EventController::class)->except('show')->names('event');
+
+    Route::resource('transaction', TransactionController::class)->names('transaction');
 });

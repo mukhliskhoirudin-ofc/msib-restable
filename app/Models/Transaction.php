@@ -28,4 +28,17 @@ class Transaction extends Model
             $model->code = 'ORD-' . str_pad(static::count() + 1, 6, '0', STR_PAD_LEFT);
         });
     }
+    public function getRouteKeyName()
+    {
+        return 'code';
+    }
+
+    public function getBadgeColorAttribute()
+    {
+        return match ($this->status) {
+            'success' => 'success',
+            'pending' => 'warning',
+            'failed' => 'danger',
+        };
+    }
 }

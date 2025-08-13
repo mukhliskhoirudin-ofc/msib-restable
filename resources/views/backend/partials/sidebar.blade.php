@@ -111,6 +111,12 @@
                 </li>
             </ul>
         </li>
+        <li class="menu-item {{ request()->is('panel/transaction*') ? 'active' : '' }} ">
+            <a href="{{ route('panel.transaction.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-credit-card"></i>
+                <div data-i18n="Analytics">Transaction</div>
+            </a>
+        </li>
         <li class="menu-item">
             <a href="index.html" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-star"></i>
