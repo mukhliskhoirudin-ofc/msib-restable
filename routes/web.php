@@ -46,5 +46,6 @@ Route::prefix('panel')->middleware(['auth', 'verified'])->name('panel.')->group(
 
     Route::resource('event', EventController::class)->except('show')->names('event');
 
+    Route::get('transaction/export/excel', [TransactionController::class, 'export'])->name('transaction.export');
     Route::resource('transaction', TransactionController::class)->names('transaction');
 });

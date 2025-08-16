@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Backend;
 
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use App\Exports\TransactionsExport;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TransactionController extends Controller
 {
@@ -13,7 +15,13 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transaction = Transaction::latest()
+        $search = request()->input('search');
+        $status = request()->input('status');
+        $startDate = request()->input('start_date');
+        $endDate = request()->input('end_date');
+
+        $transaction = Transaction::query()
+            ->latest()
             ->select([
                 'code',
                 'type',
@@ -26,11 +34,33 @@ class TransactionController extends Controller
                 'amount',
                 'file',
                 'status',
-                'message'
-            ])->paginate(5);
+                'message',
+                'created_at'
+            ]);
+
+        if ($search) {
+            $transaction->where(function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%')
+                    ->orWhere('phone', 'like', '%' . $search . '%')
+                    ->orWhere('code', 'like', '%' . $search . '%');
+            });
+        }
+
+        if ($status) {
+            $transaction->where('status', $status);
+        }
+
+        if ($startDate && $endDate) {
+            $transaction->whereBetween('date', [$startDate, $endDate]);
+        }
 
         return view('backend.transactions.index', [
-            'transactions' => $transaction,
+            'transactions' => $transaction->paginate(5)->withQueryString(),
+            'search' => $search,
+            'status' => $status,
+            'startDate' => $startDate,
+            'endDate' => $endDate,
         ]);
     }
 
@@ -66,5 +96,18 @@ class TransactionController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function export(Request $request)
+    {
+        $search = $request->input('search');
+        $status = $request->input('status');
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        return Excel::download(
+            new TransactionsExport($search, $status, $startDate, $endDate),
+            'transactions-' . now()->format('Y-m-d') . '.xlsx'
+        );
     }
 }

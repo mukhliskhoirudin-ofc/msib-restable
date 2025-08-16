@@ -39,6 +39,73 @@
                                     <h5 class="mb-0">Transactions</h5>
                                 </div>
 
+                                {{-- export --}}
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <!-- Filter Form -->
+                                        <form id="filter-form" action="{{ route('panel.transaction.index') }}"
+                                            method="GET" class="row g-3 align-items-end">
+                                            <!-- Search -->
+                                            <div class="col-md-2">
+                                                <label class="form-label">Search</label>
+                                                <input type="text" class="form-control" name="search"
+                                                    value="{{ request('search') }}" placeholder="Search..."
+                                                    autocomplete="off">
+                                            </div>
+
+                                            <!-- Status -->
+                                            <div class="col-md-2">
+                                                <label class="form-label">Status</label>
+                                                <select class="form-select" name="status">
+                                                    <option value="">All</option>
+                                                    <option value="pending"
+                                                        {{ request('status') == 'pending' ? 'selected' : '' }}>Pending
+                                                    </option>
+                                                    <option value="success"
+                                                        {{ request('status') == 'success' ? 'selected' : '' }}>Success
+                                                    </option>
+                                                    <option value="failed"
+                                                        {{ request('status') == 'failed' ? 'selected' : '' }}>Failed
+                                                    </option>
+                                                </select>
+                                            </div>
+
+                                            <!-- Date From -->
+                                            <div class="col-md-2">
+                                                <label class="form-label">From Date</label>
+                                                <input type="date" class="form-control" name="start_date"
+                                                    value="{{ request('start_date') }}">
+                                            </div>
+
+                                            <!-- Date To -->
+                                            <div class="col-md-2">
+                                                <label class="form-label">To Date</label>
+                                                <input type="date" class="form-control" name="end_date"
+                                                    value="{{ request('end_date') }}">
+                                            </div>
+
+                                            <!-- Buttons -->
+                                            <div class="col-md-4">
+                                                <div class="d-flex gap-2">
+                                                    <button type="submit" class="btn btn-primary">
+                                                        <i class="bx bx-filter-alt"></i> Filter
+                                                    </button>
+
+                                                    <a href="{{ route('panel.transaction.index') }}"
+                                                        class="btn btn-outline-secondary">
+                                                        <i class="bx bx-reset"></i> Reset
+                                                    </a>
+
+                                                    <button type="button" onclick="exportData()" class="btn btn-success">
+                                                        <i class="bx bx-export"></i> Export
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                {{-- end export --}}
+
                                 <div class="table-responsive text-nowrap">
                                     <table class="table">
                                         <thead>
@@ -125,3 +192,17 @@
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script>
+        function exportData() {
+            const form = document.getElementById('filter-form');
+            const exportForm = form.cloneNode(true);
+            exportForm.action = "{{ route('panel.transaction.export') }}";
+            exportForm.style.display = 'none';
+            document.body.appendChild(exportForm);
+            exportForm.submit();
+            document.body.removeChild(exportForm);
+        }
+    </script>
+@endpush
