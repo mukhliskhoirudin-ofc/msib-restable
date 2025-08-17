@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Backend;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Mail\BookingMailPending;
 use App\Exports\TransactionsExport;
 use App\Http\Controllers\Controller;
+use App\Mail\BookingMailConfirm;
+use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 
 class TransactionController extends Controller
@@ -86,6 +89,13 @@ class TransactionController extends Controller
         ]);
 
         $transaction->update($validated);
+
+        //send email
+        if ($transaction->status === 'success') {
+            Mail::to($transaction->email)
+                ->cc('operator@gmail.com')
+                ->send(new BookingMailConfirm($transaction));
+        }
 
         return redirect()->route('panel.transaction.index')
             ->with('success', 'Transaction status updated successfully.');
