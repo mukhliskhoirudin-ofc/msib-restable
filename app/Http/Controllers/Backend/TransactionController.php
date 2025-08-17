@@ -9,6 +9,7 @@ use App\Mail\BookingMailPending;
 use App\Exports\TransactionsExport;
 use App\Http\Controllers\Controller;
 use App\Mail\BookingMailConfirm;
+use App\Mail\BookingMailFailed;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -95,6 +96,12 @@ class TransactionController extends Controller
             Mail::to($transaction->email)
                 ->cc('operator@gmail.com')
                 ->send(new BookingMailConfirm($transaction));
+        }
+
+        if ($transaction->status === 'failed') {
+            Mail::to($transaction->email)
+                ->cc('operator@gmail.com')
+                ->send(new BookingMailFailed($transaction));
         }
 
         return redirect()->route('panel.transaction.index')
