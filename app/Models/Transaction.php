@@ -18,6 +18,7 @@ class Transaction extends Model
         'amount',
         'file',
         'status',
+        'reason',
         'message'
     ];
 

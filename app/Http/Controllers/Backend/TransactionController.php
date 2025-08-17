@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Exports\TransactionsExport;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
@@ -75,19 +76,19 @@ class TransactionController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Transaction $transaction)
     {
-        //
+        $validated = $request->validate([
+            'status' => ['required', Rule::in(['success', 'failed', 'pending'])],
+            'reason' => ['nullable', 'string', 'max:255']
+        ]);
+
+        $transaction->update($validated);
+
+        return redirect()->route('panel.transaction.index')
+            ->with('success', 'Transaction status updated successfully.');
     }
 
     /**

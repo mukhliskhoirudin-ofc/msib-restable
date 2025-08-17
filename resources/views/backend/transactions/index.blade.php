@@ -153,10 +153,6 @@
                                                             class="btn btn-icon btn-secondary">
                                                             <span class="tf-icons bx bx-show"></span>
                                                         </a>
-                                                        <a href="{{ route('panel.transaction.edit', $transaction) }}"
-                                                            class="btn btn-icon btn-warning">
-                                                            <span class="tf-icons bx bx-edit"></span>
-                                                        </a>
                                                         <form
                                                             action="{{ route('panel.transaction.destroy', $transaction) }}"
                                                             class="d-inline"

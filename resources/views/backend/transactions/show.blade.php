@@ -96,7 +96,7 @@
                             </div>
                         </div>
                         <!-- Message Section -->
-                        <div class="mt-4">
+                        <div class="mt-4 mb-4">
                             <h6 class="d-flex align-items-center mb-2">
                                 <i class="bx bx-message-alt text-primary me-2"></i>
                                 Message
@@ -109,6 +109,13 @@
                                 @endif
                             </div>
                         </div>
+
+                        @if ($transaction->status === 'failed')
+                            <div class="text-bold fst-italic">Failed Reason : <span class="text-danger">
+                                    {{ $transaction->reason }}
+                                </span>
+                            </div>
+                        @endif
                     </div>
 
 
@@ -156,87 +163,36 @@
         <!-- Action Buttons -->
         <div class="d-flex justify-content-end gap-2 mt-4">
             <a href="{{ route('panel.transaction.index') }}" class="btn btn-outline-secondary">
-                <i class="bx bx-chevron-left me-1"></i> Back
+                <i class="bx bx-chevron-left me-1"></i> Back to List
             </a>
 
             @if ($transaction->status === 'pending')
-                <!-- Tombol untuk status Pending -->
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#approveModal">
-                    <i class="bx bx-check-circle me-1"></i> Approve
+                <!-- Tombol untuk status pending -->
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmPaymentModal">
+                    <i class="bx bx-check-circle me-1"></i> Confirm Payment
                 </button>
 
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">
-                    <i class="bx bx-x-circle me-1"></i> Reject
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectPaymentModal">
+                    <i class="bx bx-x-circle me-1"></i> Reject Payment
                 </button>
-
-                <!-- Modal Approve -->
-                <div class="modal fade" id="approveModal" tabindex="-1">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Confirm Approval</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Are you sure you want to approve this transaction?</p>
-                                <p><strong>ID:</strong> {{ $transaction->code }}</p>
-                                <p><strong>Amount:</strong> Rp {{ number_format($transaction->amount, 0, ',', '.') }}</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-secondary"
-                                    data-bs-dismiss="modal">Cancel</button>
-                                <form action="#" method="POST">
-                                    @csrf
-                                    @method('PUT')
-                                    <button type="submit" class="btn btn-success">
-                                        <i class="bx bx-check-circle me-1"></i> Confirm Approve
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Modal Reject -->
-                <div class="modal fade" id="rejectModal" tabindex="-1">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Confirm Rejection</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Are you sure you want to reject this transaction?</p>
-                                <div class="mb-3">
-                                    <label for="rejectReason" class="form-label">Reason (optional)</label>
-                                    <textarea class="form-control" id="rejectReason" name="reason" rows="3"></textarea>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-secondary"
-                                    data-bs-dismiss="modal">Cancel</button>
-                                <form action="#" method="POST">
-                                    @csrf
-                                    @method('PUT')
-                                    <input type="hidden" name="reason" id="modalRejectReason">
-                                    <button type="submit" class="btn btn-danger">
-                                        <i class="bx bx-x-circle me-1"></i> Confirm Reject
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             @elseif($transaction->status === 'success')
+                <!-- Tampilan untuk status success -->
                 <span class="btn btn-success disabled">
-                    <i class="bx bx-check-circle me-1"></i> Approved
+                    <i class="bx bx-check-circle me-1"></i> Payment Confirmed
                 </span>
             @elseif($transaction->status === 'failed')
+                <!-- Tampilan untuk status failed -->
                 <span class="btn btn-danger disabled">
-                    <i class="bx bx-x-circle me-1"></i> Rejected
+                    <i class="bx bx-x-circle me-1"></i> Payment Rejected
                 </span>
             @endif
         </div>
+
+        <!-- Modal Confirm Payment -->
+        @include('backend.transactions._modal-confirm')
+
+        <!-- Modal Reject Payment -->
+        @include('backend.transactions._modal-reject')
 
     </div>
 @endsection
@@ -252,13 +208,14 @@
             document.body.removeChild(link);
         }
 
-        // Untuk mengisi reason dari textarea ke input hidden
-        document.getElementById('rejectModal').addEventListener('show.bs.modal', function() {
-            document.getElementById('modalRejectReason').value = document.getElementById('rejectReason').value;
-        });
+        // Update hidden input with textarea value
+        const textarea = document.getElementById('rejectionReason');
+        const hiddenInput = document.getElementById('modalRejectionReason');
 
-        document.getElementById('rejectReason').addEventListener('input', function() {
-            document.getElementById('modalRejectReason').value = this.value;
-        });
+        if (textarea && hiddenInput) {
+            textarea.addEventListener('input', function() {
+                hiddenInput.value = this.value;
+            });
+        }
     </script>
 @endpush
