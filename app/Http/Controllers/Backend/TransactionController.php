@@ -4,14 +4,15 @@ namespace App\Http\Controllers\Backend;
 
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use App\Mail\BookingMailFailed;
 use Illuminate\Validation\Rule;
+use App\Mail\BookingMailConfirm;
 use App\Mail\BookingMailPending;
 use App\Exports\TransactionsExport;
 use App\Http\Controllers\Controller;
-use App\Mail\BookingMailConfirm;
-use App\Mail\BookingMailFailed;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 
 class TransactionController extends Controller
 {
@@ -111,9 +112,19 @@ class TransactionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Transaction $transaction)
     {
-        //
+        try {
+            if ($transaction->file && Storage::disk('public')->exists($transaction->file)) {
+                Storage::disk('public')->delete($transaction->file);
+            }
+
+            $transaction->delete();
+
+            return redirect()->route('panel.transaction.index')->with('success', 'transaction berhasil dihapus.');
+        } catch (\Exception $err) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $err->getMessage());
+        }
     }
 
     public function export(Request $request)
