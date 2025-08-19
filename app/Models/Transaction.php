@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Review;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Transaction extends Model
 {
@@ -44,8 +45,8 @@ class Transaction extends Model
         };
     }
 
-    public function reviews(): HasMany
+    public function review(): HasOne
     {
-        return $this->hasMany(Review::class);
+        return $this->hasOne(Review::class);
     }
 }

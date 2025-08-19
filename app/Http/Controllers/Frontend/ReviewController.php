@@ -23,7 +23,7 @@ class ReviewController extends Controller
         }
 
         // Periksa apakah transaksi sudah memiliki review
-        if ($transaction->reviews()->exists()) {
+        if ($transaction->review()->exists()) {
             return redirect()->back()->with('error', 'Transaksi sudah memiliki review.');
         }
 
