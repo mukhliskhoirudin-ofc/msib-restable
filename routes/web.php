@@ -10,6 +10,8 @@ use App\Http\Controllers\Backend\ImageController;
 use App\Http\Controllers\Frontend\MainController;
 use App\Http\Controllers\Frontend\BookingController;
 use App\Http\Controllers\Backend\TransactionController;
+use App\Http\Controllers\Frontend\ReviewController as FrontendReviewController;
+use App\Http\Controllers\Backend\ReviewController;
 
 // Route::get('/', function () {
 //     return view('frontend.layouts.main');
@@ -18,6 +20,7 @@ use App\Http\Controllers\Backend\TransactionController;
 // frontend
 Route::get('/', MainController::class);
 Route::post('booking', [BookingController::class, 'store'])->name('booking.store');
+Route::post('review', [FrontendReviewController::class, 'store'])->name('review.store');
 
 
 Auth::routes(['verify' => true]);

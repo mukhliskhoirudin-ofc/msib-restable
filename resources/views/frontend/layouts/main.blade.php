@@ -362,6 +362,9 @@
         </section>
         <!-- /Contact Section -->
 
+        <!-- Review Form Section -->
+        @include('frontend.partials.review')
+        <!-- /Review Form Section -->
     </main>
 
     {{-- footer --}}
@@ -419,12 +422,17 @@
     <!-- cara atasi refresh saat tombol submit ditekan -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Cek jika ada error validasi
-            const hasErrors = @json($errors->any());
+            const bookingErrors = document.querySelectorAll('#bookingModal .is-invalid');
 
-            if (hasErrors) {
-                const bookingModal = new bootstrap.Modal(document.getElementById('bookingModal')); //id bookingModal
+            if (bookingErrors.length > 0) {
+                const bookingModal = new bootstrap.Modal(document.getElementById('bookingModal'));
                 bookingModal.show();
+            }
+
+            const reviewErrors = document.querySelectorAll('#review .is-invalid');
+
+            if (reviewErrors.length > 0) {
+                document.getElementById('review').scrollIntoView();
             }
         });
     </script>
