@@ -29,4 +29,15 @@ class ReviewController extends Controller
             'review' => $review,
         ]);
     }
+
+    public function destroy(Review $review)
+    {
+        try {
+            $review->delete();
+
+            return redirect()->route('panel.review.index')->with('success', 'Review berhasil dihapus.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal menghapus review: ' . $e->getMessage());
+        }
+    }
 }
