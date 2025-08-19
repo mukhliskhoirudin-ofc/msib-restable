@@ -51,4 +51,8 @@ Route::prefix('panel')->middleware(['auth', 'verified'])->name('panel.')->group(
 
     Route::get('transaction/export/excel', [TransactionController::class, 'export'])->name('transaction.export');
     Route::resource('transaction', TransactionController::class)->names('transaction');
+
+    Route::resource('review', ReviewController::class)
+        ->only(['index', 'destroy', 'show'])
+        ->names('review');
 });

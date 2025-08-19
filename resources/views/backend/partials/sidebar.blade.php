@@ -117,8 +117,8 @@
                 <div data-i18n="Analytics">Transaction</div>
             </a>
         </li>
-        <li class="menu-item">
-            <a href="index.html" class="menu-link">
+        <li class="menu-item {{ request()->is('panel/review*') ? 'active' : '' }}">
+            <a href="{{ route('panel.review.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-star"></i>
                 <div data-i18n="Analytics">Reviews</div>
             </a>
