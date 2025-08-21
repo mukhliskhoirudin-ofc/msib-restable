@@ -6,6 +6,7 @@ use App\Models\Chef;
 use App\Models\Menu;
 use App\Models\Event;
 use App\Models\Image;
+use App\Models\Review;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -39,7 +40,12 @@ class MainController extends Controller
 
             'images' => Image::latest()
                 ->select(['name', 'slug', 'description', 'file'])
-                ->get()
+                ->get(),
+
+            'reviews' => Review::with('transaction')
+                ->latest()
+                ->select('transaction_id', 'rating', 'comment')
+                ->get(),
         ]);
     }
 }
