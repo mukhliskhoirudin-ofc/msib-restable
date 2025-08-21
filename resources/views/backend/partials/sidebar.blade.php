@@ -93,7 +93,7 @@
                 </li>
             </ul>
         </li>
-        <li class="menu-item {{ request()->is('panel/image*') ? 'open' : '' }}">
+        <li class="menu-item {{ request()->is('panel/image*', 'panel/vidio*') ? 'open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-folder"></i>
                 <div data-i18n="Account Settings">Galley</div>
@@ -104,8 +104,8 @@
                         <div data-i18n="Account">Image</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="pages-account-settings-notifications.html" class="menu-link">
+                <li class="menu-item {{ request()->is('panel/vidio*') ? 'active' : '' }}">
+                    <a href="{{ route('panel.vidio.index') }}" class="menu-link">
                         <div data-i18n="Notifications">Vidio</div>
                     </a>
                 </li>

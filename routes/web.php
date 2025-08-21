@@ -7,11 +7,12 @@ use App\Http\Controllers\Backend\ChefController;
 use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\EventController;
 use App\Http\Controllers\Backend\ImageController;
+use App\Http\Controllers\Backend\VidioController;
 use App\Http\Controllers\Frontend\MainController;
+use App\Http\Controllers\Backend\ReviewController;
 use App\Http\Controllers\Frontend\BookingController;
 use App\Http\Controllers\Backend\TransactionController;
 use App\Http\Controllers\Frontend\ReviewController as FrontendReviewController;
-use App\Http\Controllers\Backend\ReviewController;
 
 // Route::get('/', function () {
 //     return view('frontend.layouts.main');
@@ -55,4 +56,6 @@ Route::prefix('panel')->middleware(['auth', 'verified'])->name('panel.')->group(
     Route::resource('review', ReviewController::class)
         ->only(['index', 'destroy', 'show'])
         ->names('review');
+
+    Route::resource('vidio', VidioController::class)->names('vidio');
 });
