@@ -10,6 +10,7 @@ use App\Models\Review;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Vidio;
 
 class MainController extends Controller
 {
@@ -45,6 +46,10 @@ class MainController extends Controller
             'reviews' => Review::with('transaction')
                 ->latest()
                 ->select('transaction_id', 'rating', 'comment')
+                ->get(),
+
+            'vidios' => Vidio::latest()
+                ->select('url')
                 ->get(),
         ]);
     }

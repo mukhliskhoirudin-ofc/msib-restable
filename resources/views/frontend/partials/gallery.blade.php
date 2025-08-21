@@ -48,6 +48,18 @@
                         </a>
                     </div>
                 @endforeach
+
+                {{-- Video --}}
+                @foreach ($vidios as $vidio)
+                    <div class="swiper-slide">
+                        <a class="glightbox" data-gallery="media-gallery" href="{{ $vidio->url }}">
+                            <img src="{{ $vidio->thumbnail_url }}" class="img-fluid" alt="Video">
+                            <span class="position-absolute top-50 start-50 translate-middle text-white fs-3">
+                                <i class="bi bi-play-circle-fill"></i>
+                            </span>
+                        </a>
+                    </div>
+                @endforeach
             </div>
             <div class="swiper-pagination"></div>
         </div>
