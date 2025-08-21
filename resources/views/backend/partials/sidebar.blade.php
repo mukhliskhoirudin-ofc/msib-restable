@@ -58,7 +58,7 @@
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
         <li class="menu-item {{ request()->is('panel/dashboard') ? 'active' : '' }}">
-            <a href="{{ route('panel.dashboard') }}" class="menu-link">
+            <a href="{{ route('panel.dashboard.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
             </a>

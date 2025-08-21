@@ -11,6 +11,7 @@ use App\Http\Controllers\Backend\VidioController;
 use App\Http\Controllers\Frontend\MainController;
 use App\Http\Controllers\Backend\ReviewController;
 use App\Http\Controllers\Frontend\BookingController;
+use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\TransactionController;
 use App\Http\Controllers\Frontend\ReviewController as FrontendReviewController;
 
@@ -26,36 +27,32 @@ Route::post('review', [FrontendReviewController::class, 'store'])->name('review.
 
 Auth::routes(['verify' => true]);
 
-// Route::prefix('panel')->group(function () {
-//     Route::get('dashboard', function () {
-//         return view('dashboard');
-//     })->name('dashboard');
-// });
-
 //backend
-Route::prefix('panel')->middleware(['auth', 'verified'])->name('panel.')->group(function () {
-    Route::get('dashboard', function () {
-        return view('backend.dashboard');
-    })->name('dashboard');
+Route::prefix('panel')                  // semua url akan diawali /panel
+    ->middleware(['auth', 'verified'])  // hanya user login & verified
+    ->name('panel.')                    // semua route name diawali panel.
+    ->group(function () {
 
-    // ini default uuid karena getRouteKeyName() = uuid
-    Route::resource('image', ImageController::class)->names('image');
-    // ini kalau mau pake route show pakai slug
-    Route::get('image/{image:slug}', [ImageController::class, 'show'])->name('image.show');
+        Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
-    Route::resource('menu', MenuController::class)->names('menu');
-    Route::get('menu/{menu:slug}', [MenuController::class, 'show'])->name('menu.show');
+        // ini default uuid karena getRouteKeyName() = uuid
+        Route::resource('image', ImageController::class)->names('image');
+        // ini kalau mau pake route show pakai slug
+        Route::get('image/{image:slug}', [ImageController::class, 'show'])->name('image.show');
 
-    Route::resource('chef', ChefController::class)->names('chef');
+        Route::resource('menu', MenuController::class)->names('menu');
+        Route::get('menu/{menu:slug}', [MenuController::class, 'show'])->name('menu.show');
 
-    Route::resource('event', EventController::class)->except('show')->names('event');
+        Route::resource('chef', ChefController::class)->names('chef');
 
-    Route::get('transaction/export/excel', [TransactionController::class, 'export'])->name('transaction.export');
-    Route::resource('transaction', TransactionController::class)->names('transaction');
+        Route::resource('event', EventController::class)->except('show')->names('event');
 
-    Route::resource('review', ReviewController::class)
-        ->only(['index', 'destroy', 'show'])
-        ->names('review');
+        Route::get('transaction/export/excel', [TransactionController::class, 'export'])->name('transaction.export');
+        Route::resource('transaction', TransactionController::class)->names('transaction');
 
-    Route::resource('vidio', VidioController::class)->names('vidio');
-});
+        Route::resource('review', ReviewController::class)
+            ->only(['index', 'destroy', 'show'])
+            ->names('review');
+
+        Route::resource('vidio', VidioController::class)->names('vidio');
+    });
