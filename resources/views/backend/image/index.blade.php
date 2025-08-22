@@ -19,7 +19,7 @@
                         <div class="col-sm-12">
                             <div class="card-body">
                                 {{-- Alert Success & Error --}}
-                                @if (session('success'))
+                                {{-- @if (session('success'))
                                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                                         <strong>Berhasil!</strong> {{ session('success') }}
                                         <button type="button" class="btn-close" data-bs-dismiss="alert"
@@ -33,7 +33,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="alert"
                                             aria-label="Tutup"></button>
                                     </div>
-                                @endif
+                                @endif --}}
 
                                 <div class="d-flex justify-content-between align-items-center px-3 pt-3 pb-3">
                                     <h5 class="mb-0">Gallery</h5>
@@ -73,13 +73,13 @@
                                                             class="btn btn-icon btn-warning">
                                                             <span class="tf-icons bx bx-edit"></span>
                                                         </a>
-                                                        <form action="{{ route('panel.image.destroy', $image) }}"
-                                                            class="d-inline"
-                                                            onsubmit="return confirm('Yakin ingin menghapus gambar ini?')"
-                                                            method="post">
+                                                        <form id="delete-form-{{ $image->id }}"
+                                                            action="{{ route('panel.image.destroy', $image) }}"
+                                                            method="POST" class="d-inline">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="btn btn-icon btn-danger">
+                                                            <button type="button" class="btn btn-icon btn-danger"
+                                                                onclick="confirmDelete('delete-form-{{ $image->id }}')">
                                                                 <span class="tf-icons bx bx-trash"></span>
                                                             </button>
                                                         </form>

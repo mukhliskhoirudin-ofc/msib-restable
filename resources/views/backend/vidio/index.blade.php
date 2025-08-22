@@ -17,7 +17,7 @@
                 </ol>
 
                 {{-- Alerts --}}
-                @if (session('success'))
+                {{-- @if (session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <strong>Berhasil!</strong> {{ session('success') }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
@@ -28,7 +28,7 @@
                         <strong>Gagal!</strong> {{ session('error') }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
                     </div>
-                @endif
+                @endif --}}
 
                 {{-- Header --}}
                 <div class="d-flex justify-content-between align-items-center mb-4">
@@ -71,12 +71,14 @@
                                             title="Edit">
                                             <i class="bx bx-edit"></i>
                                         </a>
-                                        <form action="{{ route('panel.vidio.destroy', $vidio) }}" method="POST"
-                                            onsubmit="return confirm('Yakin ingin menghapus vidio ini?')" class="d-inline">
+                                        <form id="delete-form-{{ $vidio->id }}"
+                                            action="{{ route('panel.vidio.destroy', $vidio) }}" method="POST"
+                                            class="d-inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger px-2 py-1" title="Hapus">
-                                                <i class="bx bx-trash"></i>
+                                            <button type="button" class="btn btn-icon btn-danger"
+                                                onclick="confirmDelete('delete-form-{{ $vidio->id }}')">
+                                                <span class="tf-icons bx bx-trash"></span>
                                             </button>
                                         </form>
                                     </div>

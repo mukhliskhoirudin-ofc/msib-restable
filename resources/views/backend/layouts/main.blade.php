@@ -105,6 +105,77 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
     @stack('js')
+
+    {{-- SweetAlert untuk notifikasi booking --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {{-- Global confirm delete --}}
+    <script>
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                actions: 'd-flex gap-3', // kasih jarak antar tombol
+                confirmButton: "btn btn-danger px-4",
+                cancelButton: "btn btn-secondary px-4"
+            },
+            buttonsStyling: false
+        });
+
+        function confirmDelete(formId) {
+            swalWithBootstrapButtons.fire({
+                title: "Are you sure?",
+                text: "This action cannot be undone.",
+                icon: "question",
+                iconColor: "#3b82f6",
+                showCancelButton: true,
+                confirmButtonText: "Delete",
+                cancelButtonText: "Cancel",
+                reverseButtons: true,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById(formId).submit();
+                }
+            });
+        }
+    </script>
+
+
+    {{-- Global toast success/error --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            @if (session('success'))
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: "{{ session('success') }}",
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 2500,
+                    toast: true,
+                });
+            @endif
+
+            @if (session('error'))
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: "{{ session('error') }}",
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 2500,
+                    toast: true,
+                });
+            @endif
+        });
+    </script>
+    <!-- end SweetAlert2 -->
+
+    <!-- Stack untuk halaman spesifik -->
+    @stack('js')
+
 </body>
 
 </html>

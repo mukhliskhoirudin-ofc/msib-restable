@@ -19,7 +19,7 @@
                         <div class="col-sm-12">
                             <div class="card-body">
                                 {{-- Alert Success & Error --}}
-                                @if (session('success'))
+                                {{-- @if (session('success'))
                                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                                         <strong>Berhasil!</strong> {{ session('success') }}
                                         <button type="button" class="btn-close" data-bs-dismiss="alert"
@@ -33,7 +33,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="alert"
                                             aria-label="Tutup"></button>
                                     </div>
-                                @endif
+                                @endif --}}
 
                                 <div class="d-flex justify-content-between align-items-center px-3 pt-3 pb-3">
                                     <h5 class="mb-0">Menu</h5>
@@ -83,13 +83,13 @@
                                                             class="btn btn-icon btn-warning">
                                                             <span class="tf-icons bx bx-edit"></span>
                                                         </a>
-                                                        <form action="{{ route('panel.menu.destroy', $menu) }}"
-                                                            class="d-inline"
-                                                            onsubmit="return confirm('Yakin ingin menghapus menu ini?')"
-                                                            method="post">
+                                                        <form id="delete-form-{{ $menu->id }}"
+                                                            action="{{ route('panel.menu.destroy', $menu) }}"
+                                                            method="POST" class="d-inline">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="btn btn-icon btn-danger">
+                                                            <button type="button" class="btn btn-icon btn-danger"
+                                                                onclick="confirmDelete('delete-form-{{ $menu->id }}')">
                                                                 <span class="tf-icons bx bx-trash"></span>
                                                             </button>
                                                         </form>

@@ -19,7 +19,7 @@
                         <div class="col-sm-12">
                             <div class="card-body">
                                 {{-- Alert Success & Error --}}
-                                @if (session('success'))
+                                {{-- @if (session('success'))
                                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                                         <strong>Berhasil!</strong> {{ session('success') }}
                                         <button type="button" class="btn-close" data-bs-dismiss="alert"
@@ -33,7 +33,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="alert"
                                             aria-label="Close"></button>
                                     </div>
-                                @endif
+                                @endif --}}
 
                                 <div class="d-flex justify-content-between align-items-center px-3 pt-3 pb-4">
                                     <h5 class="mb-0">Transactions</h5>
@@ -129,7 +129,7 @@
                                                     <td>{{ $transactions->firstItem() + $loop->index }}</td>
                                                     <td>{{ $transaction->code }}</td>
                                                     <td>{{ $transaction->name }}</td>
-                                                    <td>{{ Str::ucfirst($transaction->type) }}</td>I
+                                                    <td>{{ Str::ucfirst($transaction->type) }}</td>
                                                     <td>{{ $transaction->people }}</td>
                                                     <td>Rp {{ number_format($transaction->amount, 0, ',', '.') }}</td>
                                                     <td>{{ $transaction->time }}</td>
@@ -147,14 +147,13 @@
                                                             class="btn btn-icon btn-secondary">
                                                             <span class="tf-icons bx bx-show"></span>
                                                         </a>
-                                                        <form
+                                                        <form id="delete-form-{{ $transaction->id }}"
                                                             action="{{ route('panel.transaction.destroy', $transaction) }}"
-                                                            class="d-inline"
-                                                            onsubmit="return confirm('Yakin ingin menghapus transaksi ini?')"
-                                                            method="post">
+                                                            method="POST" class="d-inline">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="btn btn-icon btn-danger">
+                                                            <button type="button" class="btn btn-icon btn-danger"
+                                                                onclick="confirmDelete('delete-form-{{ $transaction->id }}')">
                                                                 <span class="tf-icons bx bx-trash"></span>
                                                             </button>
                                                         </form>

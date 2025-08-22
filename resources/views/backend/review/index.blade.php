@@ -19,7 +19,7 @@
                         <div class="col-sm-12">
                             <div class="card-body">
                                 {{-- Alert Success & Error --}}
-                                @if (session('success'))
+                                {{-- @if (session('success'))
                                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                                         <strong>Success!</strong> {{ session('success') }}
                                         <button type="button" class="btn-close" data-bs-dismiss="alert"
@@ -33,7 +33,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="alert"
                                             aria-label="Close"></button>
                                     </div>
-                                @endif
+                                @endif --}}
 
                                 <div class="d-flex justify-content-between align-items-center px-3 pt-3">
                                     <h5 class="mb-0">Customer Reviews</h5>
@@ -74,13 +74,13 @@
                                                             <span class="tf-icons bx bx-show"></span>
                                                         </a>
 
-                                                        <form action="{{ route('panel.review.destroy', $review) }}"
-                                                            class="d-inline"
-                                                            onsubmit="return confirm('Yakin ingin menghapus menu ini?')"
-                                                            method="post">
+                                                        <form id="delete-form-{{ $review->id }}"
+                                                            action="{{ route('panel.review.destroy', $review) }}"
+                                                            method="POST" class="d-inline">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="btn btn-icon btn-danger">
+                                                            <button type="button" class="btn btn-icon btn-danger"
+                                                                onclick="confirmDelete('delete-form-{{ $review->id }}')">
                                                                 <span class="tf-icons bx bx-trash"></span>
                                                             </button>
                                                         </form>
@@ -88,7 +88,7 @@
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="6" class="text-center text-muted">
+                                                    <td colspan="7" class="text-center text-muted">
                                                         No reviews available.
                                                     </td>
                                                 </tr>
