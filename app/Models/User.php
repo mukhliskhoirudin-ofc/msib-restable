@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Laravolt\Avatar\Facade as Avatar;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -50,5 +51,18 @@ class User extends Authenticatable implements MustVerifyEmail
     public function menus(): HasMany
     {
         return $this->hasMany(Menu::class);
+    }
+
+    // Accessor untuk avatar inisial otomatis
+    public function getAvatarAttribute()
+    {
+        // Kalau user punya avatar sendiri, pakai itu
+        $avatarPath = $this->attributes['avatar'] ?? null;
+        if ($avatarPath) {
+            return asset('storage/' . $avatarPath);
+        }
+
+        // Kalau belum, generate avatar inisial otomatis
+        return Avatar::create($this->name)->toBase64();
     }
 }
