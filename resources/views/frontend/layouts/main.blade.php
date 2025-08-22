@@ -40,9 +40,6 @@
 
 <body class="index-page">
 
-    {{-- flash message --}}
-    <div class="flash-message" data-success="{{ session('success') }}" data-error="{{ session('error') }}"></div>
-
     {{-- header --}}
     @include('frontend.partials.header')
 
@@ -385,39 +382,36 @@
     <!-- Main JS File -->
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
 
-    <!-- Sweetalert -->
+    {{-- SweetAlert untuk notifikasi booking --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <script>
-        // SweetAlert untuk notifikasi booking
         document.addEventListener('DOMContentLoaded', function() {
-            const flash = document.querySelector('.flash-message');
-
-            if (flash?.dataset.success) {
+            @if (session('success'))
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
-                    title: flash.dataset.success,
+                    title: "{{ session('success') }}",
                     showConfirmButton: false,
                     timerProgressBar: true,
-                    timer: 3000,
+                    timer: 4000,
                     toast: true,
                 });
-            }
+            @endif
 
-            if (flash?.dataset.error) {
+            @if (session('error'))
                 Swal.fire({
                     position: 'top-end',
                     icon: 'error',
-                    title: flash.dataset.error,
+                    title: "{{ session('error') }}",
                     showConfirmButton: false,
                     timerProgressBar: true,
-                    timer: 3000,
+                    timer: 4000,
                     toast: true,
                 });
-            }
+            @endif
         });
     </script>
+    <!-- endSweetalert -->
 
     <!-- cara atasi refresh saat tombol submit ditekan -->
     <script>
