@@ -83,13 +83,13 @@
                                 </div>
                             </div>
                         </div>
-
                     @empty
-                        <tr>
-                            <td colspan="6" class="text-center text-muted">
-                                No vidios available.
-                            </td>
-                        </tr>
+                        <div class="col-12">
+                            <div class="d-flex flex-column justify-content-center align-items-center bg-light py-5 rounded">
+                                <i class="bx bx-video-off display-1 text-muted"></i>
+                                <h5 class="mt-2 text-muted">No videos available.</h5>
+                            </div>
+                        </div>
                     @endforelse
                 </div>
 

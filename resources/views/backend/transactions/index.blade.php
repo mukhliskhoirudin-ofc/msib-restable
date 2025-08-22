@@ -111,6 +111,7 @@
                                         <thead>
                                             <tr class="text-nowrap">
                                                 <th>#</th>
+                                                <th>Code</th>
                                                 <th>Name</th>
                                                 <th>Type</th>
                                                 <th>People</th>
@@ -118,7 +119,6 @@
                                                 <th>Time</th>
                                                 <th>Date</th>
                                                 <th>Status</th>
-                                                <th>File</th>
                                                 <th>Message</th>
                                                 <th>Action</th>
                                             </tr>
@@ -127,25 +127,19 @@
                                             @forelse ($transactions as $transaction)
                                                 <tr>
                                                     <td>{{ $transactions->firstItem() + $loop->index }}</td>
+                                                    <td>{{ $transaction->code }}</td>
                                                     <td>{{ $transaction->name }}</td>
-                                                    <td>{{ $transaction->type }}</td>
+                                                    <td>{{ Str::ucfirst($transaction->type) }}</td>I
                                                     <td>{{ $transaction->people }}</td>
                                                     <td>Rp {{ number_format($transaction->amount, 0, ',', '.') }}</td>
                                                     <td>{{ $transaction->time }}</td>
-                                                    <td>{{ $transaction->date }}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($transaction->date)->format('d M Y') }}
+                                                    </td>
                                                     <td>
                                                         <span
                                                             class="badge rounded-pill bg-{{ $transaction->badge_color }}">
                                                             {{ $transaction->status }}
                                                         </span>
-                                                    </td>
-                                                    <td>
-                                                        @if ($transaction->file)
-                                                            <a href="{{ asset('storage/' . $transaction->file) }}"
-                                                                target="_blank">View Payment</a>
-                                                        @else
-                                                            -
-                                                        @endif
                                                     </td>
                                                     <td>{{ Str::limit($transaction->message, 30) }}</td>
                                                     <td>

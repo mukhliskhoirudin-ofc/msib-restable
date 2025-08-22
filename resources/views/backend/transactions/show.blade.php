@@ -72,7 +72,7 @@
                                 <div class="col-6">
                                     <small class="text-muted d-block">Date</small>
                                     <h6 class="mb-0">
-                                        {{ $transaction->date }}
+                                        {{ \Carbon\Carbon::parse($transaction->date)->format('d M Y') }}
                                 </div>
                                 <div class="col-6">
                                     <small class="text-muted d-block">Time</small>

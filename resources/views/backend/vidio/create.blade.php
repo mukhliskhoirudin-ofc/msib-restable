@@ -4,16 +4,22 @@
 
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
-        {{-- Header --}}
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h4 class="fw-bold mb-0"><i class="bx bx-video me-1"></i> Tambah Vidio</h4>
-            <a href="{{ route('panel.vidio.index') }}" class="btn btn-outline-secondary">
-                <i class="bx bx-arrow-back me-1"></i> Back
-            </a>
-        </div>
+        {{-- Breadcrumb --}}
+        <ol class="breadcrumb fs-5 mb-4">
+            <li class="breadcrumb-item">
+                <div class="fw-bold cursor-pointer">Gallery</div>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ route('panel.vidio.index') }}">Vidio</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ route('panel.vidio.create') }}">Create</a>
+            </li>
+        </ol>
 
         {{-- Card Form --}}
         <div class="card shadow-sm border-0">
+            <h5 class="card-header">Create Vidio</h5>
             <div class="card-body">
                 <form action="{{ route('panel.vidio.store') }}" method="POST">
                     @csrf
